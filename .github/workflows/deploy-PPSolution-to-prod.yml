@@ -39,6 +39,15 @@ jobs:
         user-name: ${{ env.targetEnvironmentUserId }}
         password-secret: ${{ secrets[env.targetEnvironmentSecretName] }}
         solution-file: '${{env.solutionName}}\${{env.solutionName}}_managed.zip'
+        import-as-holding: true
+        
+    - name: 'upgrade-solution'
+      uses: microsoft/powerplatform-actions/upgrade-solution@v0
+      with:
+        environment-url: ${{ env.targetEnvironmentUrl }}
+        user-name: ${{ env.targetEnvironmentUserId }}
+        password-secret: ${{ secrets[env.targetEnvironmentSecretName] }}
+        solution-name: ${{ env.solutionName }}
 
     # Reading the different power platform action status to upload the status as artifact, to easily communicate it using other jobs.
     - name: Save job status to a file (status.json)
