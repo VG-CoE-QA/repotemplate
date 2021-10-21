@@ -5,7 +5,7 @@ name: Deploy To Test Environment First Deployment
 # NOTE: You have to change env variables with appropriate values, if you are modifying it.
 on:
  repository_dispatch:
-   types: [deploy_to_test]
+   types: [deploy_to_test_ini]
 
 jobs:
   build:
