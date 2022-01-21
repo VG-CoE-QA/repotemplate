@@ -64,6 +64,7 @@ jobs:
         solution-name: ${{ env.solutionName }}
         environment-url: ${{ env.sourceEnvironmentUrl }}
         solution-output-file: "${{ env.solutionName }}.zip"
+        run-asynchronously: true
 
     - name: 'Unpack the exported solution'
       id: unpack-dev
@@ -92,12 +93,13 @@ jobs:
 
     - name: 'Import the solution to Build Environment'
       id: import-build
-      uses: microsoft/powerplatform-actions/import-solution@v0.1.8
+      uses: microsoft/powerplatform-actions/import-solution@v0
       with:
         environment-url: ${{env.buildEnvironmentUrl}}
         user-name: ${{env.buildEnvironmentUserId}}
         password-secret: ${{ secrets[env.buildEnvironmentSecretName] }}
         solution-file: "${{env.solutionName}}_Unmanaged.zip"
+        run-asynchronously: true
 
     - name: 'Export the solution as managed from build environment'
       id: export-build
@@ -109,6 +111,7 @@ jobs:
         environment-url: ${{env.buildEnvironmentUrl}}
         managed: 'true'
         solution-output-file: "${{ env.solutionName }}_managed.zip"
+        run-asynchronously: true
 
     - name: 'Import the managed solution to the Test (target) Environment'
       id: import-test
@@ -128,6 +131,7 @@ jobs:
         user-name: ${{ env.targetEnvironmentUserId }}
         password-secret: ${{ secrets[env.targetEnvironmentSecretName] }}
         solution-name: ${{ env.solutionName }}
+        async: true
 
     - name: 'Upload the managed solution to artifact'
       uses: actions/upload-artifact@v2
