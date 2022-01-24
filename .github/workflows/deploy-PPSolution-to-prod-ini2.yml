@@ -33,12 +33,13 @@ jobs:
 
     - name: 'Import the managed solution to the Prod (target) Environment'
       id: import-prod
-      uses: microsoft/powerplatform-actions/import-solution@v0.1.8
+      uses: microsoft/powerplatform-actions/import-solution@v0
       with:
         environment-url: ${{ env.targetEnvironmentUrl }}
         user-name: ${{ env.targetEnvironmentUserId }}
         password-secret: ${{ secrets[env.targetEnvironmentSecretName] }}
         solution-file: '${{env.solutionName}}\${{env.solutionName}}_managed.zip'
+        run-asynchronously: true
 
     # Reading the different power platform action status to upload the status as artifact, to easily communicate it using other jobs.
     - name: Save job status to a file (status.json)
