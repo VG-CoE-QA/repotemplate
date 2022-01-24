@@ -57,7 +57,7 @@ jobs:
 
     - name: 'Export the solution from Dev (source) environment'
       id: export-dev
-      uses: microsoft/powerplatform-actions/export-solution@v0.1.8
+      uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         user-name: ${{ env.sourceEnvironmentUserId }}
         password-secret: ${{ secrets[env.sourceEnvironmentSecretName] }}
@@ -103,7 +103,7 @@ jobs:
 
     - name: 'Export the solution as managed from build environment'
       id: export-build
-      uses: microsoft/powerplatform-actions/export-solution@v0.1.8
+      uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         user-name: ${{env.buildEnvironmentUserId}}
         password-secret: ${{ secrets[env.buildEnvironmentSecretName] }}
