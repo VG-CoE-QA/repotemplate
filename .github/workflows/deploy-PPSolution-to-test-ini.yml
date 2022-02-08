@@ -57,7 +57,7 @@ jobs:
 
     - name: 'Export the solution from Dev (source) environment'
       id: export-dev
-      uses: microsoft/powerplatform-actions/export-solution@0.5.2
+      uses: microsoft/powerplatform-actions/export-solution@0.5.1
       with:
         user-name: ${{ env.sourceEnvironmentUserId }}
         password-secret: ${{ secrets[env.sourceEnvironmentSecretName] }}
@@ -68,14 +68,14 @@ jobs:
 
     - name: 'Unpack the exported solution'
       id: unpack-dev
-      uses: microsoft/powerplatform-actions/unpack-solution@0.5.2
+      uses: microsoft/powerplatform-actions/unpack-solution@0.5.1
       with:
         solution-file: "${{ env.solutionName }}.zip"
         solution-folder: "${{ env.solutionName }}"
 
     - name: 'Commit the unpacked solution to the topic branch'
       id: branch-solution
-      uses: microsoft/powerplatform-actions/branch-solution@0.5.2
+      uses: microsoft/powerplatform-actions/branch-solution@0.5.1
       with:
        solution-folder: "${{ env.solutionName }}"
        solution-target-folder: "${{ env.solutionName }}"
@@ -86,14 +86,14 @@ jobs:
 
     - name: 'Pack the solution for testing in build environment'
       id: pack-dev
-      uses: microsoft/powerplatform-actions/pack-solution@0.5.2
+      uses: microsoft/powerplatform-actions/pack-solution@0.5.1
       with:
         solution-folder: ${{env.solutionName}}
         solution-file: "${{env.solutionName}}_Unmanaged.zip"
 
     - name: 'Import the solution to Build Environment'
       id: import-build
-      uses: microsoft/powerplatform-actions/import-solution@0.5.2
+      uses: microsoft/powerplatform-actions/import-solution@0.5.1
       with:
         environment-url: ${{env.buildEnvironmentUrl}}
         user-name: ${{env.buildEnvironmentUserId}}
@@ -103,7 +103,7 @@ jobs:
 
     - name: 'Export the solution as managed from build environment'
       id: export-build
-      uses: microsoft/powerplatform-actions/export-solution@0.5.2
+      uses: microsoft/powerplatform-actions/export-solution@0.5.1
       with:
         user-name: ${{env.buildEnvironmentUserId}}
         password-secret: ${{ secrets[env.buildEnvironmentSecretName] }}
@@ -115,7 +115,7 @@ jobs:
 
     - name: 'Import the managed solution to the Test (target) Environment'
       id: import-test
-      uses: microsoft/powerplatform-actions/import-solution@0.5.2
+      uses: microsoft/powerplatform-actions/import-solution@0.5.1
       with:
         environment-url: ${{ env.targetEnvironmentUrl }}
         user-name: ${{ env.targetEnvironmentUserId }}
