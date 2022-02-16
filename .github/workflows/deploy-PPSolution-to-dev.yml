@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: 'Export the solution from source environment'
       id: export-from-source
-      uses: microsoft/powerplatform-actions/export-solution@0.5.1
+      uses: microsoft/powerplatform-actions/export-solution@0.5.2
       with:
         user-name: ${{ env.sourceusername }}
         password-secret: ${{ secrets[env.sourcepasswordsecretname] }}
@@ -40,7 +40,7 @@ jobs:
 
     - name: 'Import the solution to Target Environment'
       id: import-to-target
-      uses: microsoft/powerplatform-actions/import-solution@0.5.1
+      uses: microsoft/powerplatform-actions/import-solution@0.5.2
       with:
         environment-url: ${{ env.targetenvironmenturl }}
         user-name: ${{ env.targetusername }}
