@@ -33,7 +33,7 @@ jobs:
 
     - name: 'Import the managed solution to the Prod (target) Environment'
       id: import-prod
-      uses: microsoft/powerplatform-actions/import-solution@0.5.2
+      uses: microsoft/powerplatform-actions/import-solution@v0
       with:
         environment-url: ${{ env.targetEnvironmentUrl }}
         user-name: ${{ env.targetEnvironmentUserId }}
