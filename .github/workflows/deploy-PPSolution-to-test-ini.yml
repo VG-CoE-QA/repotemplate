@@ -227,8 +227,9 @@ jobs:
           $branch = echo ${{ github.event.client_payload.branch }}
           $repo = echo ${{ github.repository }}
           $run = echo ${{ github.run_id }}
-          'requestid' = $requestId;
-          'projectid' = "$projectid";
+          $requestId = echo "${{env.requestId}}"
+        $projectid = echo "${{env.projectId}}"
+
           $errors = @{
             "Actions"="Unable to get the status file from the previous job"
           }
