@@ -23,7 +23,7 @@ jobs:
      requestid: ${{ github.event.client_payload.requestid }}
      projectid: ${{ github.event.client_payload.projectid }}
 
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
     - name: 'Export the solution from source environment'
@@ -95,7 +95,7 @@ jobs:
 
     - name: Upload job status file as artifact
       if: always()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: job_status
         path: status.json
@@ -109,7 +109,7 @@ jobs:
     steps:
 
     - name: Download artifact job_status
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v2.0.1
       with:
         name: job_status
       continue-on-error: true
@@ -128,8 +128,8 @@ jobs:
           $branch = ""
           $repo = echo ${{ github.repository }}
           $run = echo ${{ github.run_id }}
-          $requestId = echo ${{ github.event.client_payload.requestid }}
-          $projectid = echo "${{ github.event.client_payload.projectid }}"
+          $requestId = echo "${{env.requestId}}"
+        $projectid = echo "${{env.projectId}}"
           $errors = @{
             "Actions"="Unable to get the status file from the previous job"
           }
