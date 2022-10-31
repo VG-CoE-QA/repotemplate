@@ -239,7 +239,7 @@ jobs:
             'branch' = $branch;
             'repo' = $repo;
             'run' = $run;
-            'requestid' = $requestId;
+            'requestid' = echo ${{ github.event.client_payload.requestid }};
             'projectid' = "$projectid";
             'errors' = "$errors"
           }
