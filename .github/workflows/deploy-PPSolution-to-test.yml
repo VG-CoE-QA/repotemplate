@@ -194,8 +194,8 @@ jobs:
           'branch' = $branch;
           'repo' = $repo;
           'run' = $run;
-          'requestid' = $requestId;
-          'projectid' = "$projectid";
+           $requestId = echo "${{env.requestId}}"
+        $projectid = echo "${{env.projectId}}"
           'errors'= "$errorStr"
         }
 
