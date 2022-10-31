@@ -46,15 +46,12 @@ jobs:
           echo "$($property.Name) :: $($property.value)"
           $hashProperties[$property.Name] = $property.Value
         }
-
         echo "buildEnvironmentUserId=$($hashProperties.buildenvironmentuserid)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "buildEnvironmentSecretName=$($hashProperties.buildenvironmentsecretname)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "buildEnvironmentUrl=$($hashProperties.buildenvironmenturl)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "requestId=$($hashProperties.requestid)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "projectId=$($hashProperties.projectId)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "notes=$($hashProperties.notes)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-
     - name: 'Export the solution from Dev (source) environment'
       id: export-dev
       uses: microsoft/powerplatform-actions/export-solution@v0
@@ -145,31 +142,24 @@ jobs:
             }
           }
         }
-
         $outCome = echo "${{ steps.export-dev.outcome }}"
         $errorMsg = echo "${{ steps.export-dev.outputs.errorMessage }}"
         Process-StepOutputs "export-dev" $outCome $errorMsg
-
         $outCome = echo "${{ steps.unpack-dev.outcome }}"
         $errorMsg = echo "${{ steps.unpack-dev.outputs.errorMessage }}"
         Process-StepOutputs "unpack-dev" $outCome $errorMsg
-
         $outCome = echo "${{ steps.pack-dev.outcome }}"
         $errorMsg = echo "${{ steps.pack-dev.outputs.errorMessage }}"
         Process-StepOutputs "pack-dev" $outCome $errorMsg
-
         $outCome = echo "${{ steps.import-build.outcome }}"
         $errorMsg = echo "${{ steps.import-build.outputs.errorMessage }}"
         Process-StepOutputs "import-build" $outCome $errorMsg
-
         $outCome = echo "${{ steps.export-build.outcome }}"
         $errorMsg = echo "${{ steps.export-build.outputs.errorMessage }}"
         Process-StepOutputs "export-build" $outCome $errorMsg
-
         $outCome = echo "${{ steps.import-test.outcome }}"
         $errorMsg = echo "${{ steps.import-test.outputs.errorMessage }}"
         Process-StepOutputs "import-test" $outCome $errorMsg
-
         $jobStatus = echo ${{ job.status }}
         $workflow = echo ${{ github.workflow }}
         $branch = echo ${{ env.branchName }}
@@ -184,14 +174,12 @@ jobs:
           'branch' = $branch;
           'repo' = $repo;
           'run' = $run;
-           $requestId = echo "${{env.requestId}}"
-        $projectid = echo "${{env.projectId}}"
+          'requestid' = $requestId;
+          'projectid' = "$projectid";
           'errors'= "$errorStr"
         }
-
         $jsonString = ConvertTo-Json -InputObject $status
         $jsonString > status.json
-
     - name: Upload job status file as artifact
       if: always()
       uses: actions/upload-artifact@v3
@@ -227,9 +215,8 @@ jobs:
           $branch = echo ${{ github.event.client_payload.branch }}
           $repo = echo ${{ github.repository }}
           $run = echo ${{ github.run_id }}
-          $requestId = echo ${{ github.event.client_payload.requestid }}
-          $projectid = echo "${{ github.event.client_payload.projectid }}"
-
+          $requestId = echo "${{env.requestId}}"
+        $projectid = echo "${{env.projectId}}"
           $errors = @{
             "Actions"="Unable to get the status file from the previous job"
           }
@@ -239,7 +226,7 @@ jobs:
             'branch' = $branch;
             'repo' = $repo;
             'run' = $run;
-            'requestid' = echo ${{ github.event.client_payload.requestid }};
+            'requestid' = $requestId;
             'projectid' = "$projectid";
             'errors' = "$errors"
           }
