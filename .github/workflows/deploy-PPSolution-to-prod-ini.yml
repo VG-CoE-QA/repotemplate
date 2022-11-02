@@ -18,11 +18,11 @@ jobs:
      targetEnvironmentSecretName: ${{ github.event.client_payload.targetenvironmentsecretname }}
      targetEnvironmentUrl: ${{ github.event.client_payload.targetenvironmenturl }}
 
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
     - name: 'clone this repo'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2-beta
 
     - name: Download artifact
       uses: dawidd6/action-download-artifact@v2
@@ -69,8 +69,8 @@ jobs:
           'workflow' = "$workflow";
           'branch' = "";
           'run' = $run;
-           $requestId = echo "${{env.requestId}}"
-        $projectid = echo "${{env.projectId}}"
+          'requestid' = $requestId;
+          'projectid' = "$projectid"
           'errors' = "$errorStr"
         }
         $jsonString = ConvertTo-Json -InputObject $status
@@ -78,7 +78,7 @@ jobs:
 
     - name: Upload job status file as artifact
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v1
       with:
         name: job_status
         path: status.json
@@ -92,7 +92,7 @@ jobs:
     steps:
 
     - name: Download artifact job_status
-      uses: actions/download-artifact@v2.0.1
+      uses: actions/download-artifact@v1
       with:
         name: job_status
       continue-on-error: true
