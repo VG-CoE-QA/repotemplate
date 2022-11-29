@@ -1,9 +1,7 @@
 name: GitHub Actions Version Updater
 
 # Controls when the action will run.
-
-on:
- repository_dispatch:
+on: push
 
 jobs:
   build:
