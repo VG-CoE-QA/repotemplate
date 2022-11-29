@@ -11,10 +11,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           # [Required] Access token with `workflow` scope.
-          token: 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
+          token: ${{ secrets.WORKFLOW_SECRET }}
 
       - name: Run GitHub Actions Version Updater
         uses: saadmk11/github-actions-version-updater@v0.7.1
         with:
           # [Required] Access token with `workflow` scope.
-          token: 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
+          token: ${{ secrets.WORKFLOW_SECRET }}
