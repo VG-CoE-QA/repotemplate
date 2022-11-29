@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: 'Clone this repo'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.1.0
 
     # Github api create-a-repository-dispatch-event doesn't allow more than 10 properties in the client_payload
     # Hence we are using a request object inside a client_payload to take additional properties.
@@ -121,7 +121,7 @@ jobs:
         run-asynchronously: true
         
     - name: 'Upload the managed solution to artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.1
       with:
         name: ${{env.SolutionName}}
         path: "${{ env.solutionName }}_managed.zip"
@@ -182,7 +182,7 @@ jobs:
         $jsonString > status.json
     - name: Upload job status file as artifact
       if: always()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3.1.1.1.1
       with:
         name: job_status
         path: status.json
@@ -196,7 +196,7 @@ jobs:
     steps:
 
     - name: Download artifact job_status
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3.0.1
       with:
         name: job_status
       continue-on-error: true
