@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
         with:
           # [Required] Access token with `workflow` scope.
           token: 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
