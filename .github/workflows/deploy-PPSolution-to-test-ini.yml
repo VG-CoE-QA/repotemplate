@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: 'Clone this repo'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.1.0
 
     # Github api create-a-repository-dispatch-event doesn't allow more than 10 properties in the client_payload
     # Hence we are using a request object inside a client_payload to take additional properties.
@@ -54,7 +54,7 @@ jobs:
         echo "notes=$($hashProperties.notes)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
     - name: 'Export the solution from Dev (source) environment'
       id: export-dev
-      uses: microsoft/powerplatform-actions/export-solution@v0
+      uses: microsoft/powerplatform-actions/export-solution@latest
       with:
         user-name: ${{ env.sourceEnvironmentUserId }}
         password-secret: ${{ secrets[env.sourceEnvironmentSecretName] }}
@@ -65,14 +65,14 @@ jobs:
 
     - name: 'Unpack the exported solution'
       id: unpack-dev
-      uses: microsoft/powerplatform-actions/unpack-solution@v0
+      uses: microsoft/powerplatform-actions/unpack-solution@latest
       with:
         solution-file: "${{ env.solutionName }}.zip"
         solution-folder: "${{ env.solutionName }}"
 
     - name: 'Commit the unpacked solution to the topic branch'
       id: branch-solution
-      uses: microsoft/powerplatform-actions/branch-solution@v0
+      uses: microsoft/powerplatform-actions/branch-solution@latest
       with:
        solution-folder: "${{ env.solutionName }}"
        solution-target-folder: "${{ env.solutionName }}"
@@ -83,14 +83,14 @@ jobs:
 
     - name: 'Pack the solution for testing in build environment'
       id: pack-dev
-      uses: microsoft/powerplatform-actions/pack-solution@v0
+      uses: microsoft/powerplatform-actions/pack-solution@latest
       with:
         solution-folder: ${{env.solutionName}}
         solution-file: "${{env.solutionName}}_Unmanaged.zip"
 
     - name: 'Import the solution to Build Environment'
       id: import-build
-      uses: microsoft/powerplatform-actions/import-solution@v0
+      uses: microsoft/powerplatform-actions/import-solution@latest
       with:
         environment-url: ${{env.buildEnvironmentUrl}}
         user-name: ${{env.buildEnvironmentUserId}}
@@ -100,7 +100,7 @@ jobs:
 
     - name: 'Export the solution as managed from build environment'
       id: export-build
-      uses: microsoft/powerplatform-actions/export-solution@v0
+      uses: microsoft/powerplatform-actions/export-solution@latest
       with:
         user-name: ${{env.buildEnvironmentUserId}}
         password-secret: ${{ secrets[env.buildEnvironmentSecretName] }}
@@ -112,7 +112,7 @@ jobs:
 
     - name: 'Import the managed solution to the Test (target) Environment'
       id: import-test
-      uses: microsoft/powerplatform-actions/import-solution@v0
+      uses: microsoft/powerplatform-actions/import-solution@latest
       with:
         environment-url: ${{ env.targetEnvironmentUrl }}
         user-name: ${{ env.targetEnvironmentUserId }}
