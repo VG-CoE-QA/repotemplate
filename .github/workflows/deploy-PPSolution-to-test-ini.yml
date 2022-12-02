@@ -182,7 +182,7 @@ jobs:
         $jsonString > status.json
     - name: Upload job status file as artifact
       if: always()
-      uses: actions/upload-artifact@v3.1.1.1.1
+      uses: actions/upload-artifact@v3.1.1
       with:
         name: job_status
         path: status.json
