@@ -18,11 +18,11 @@ jobs:
      targetEnvironmentSecretName: ${{ github.event.client_payload.targetenvironmentsecretname }}
      targetEnvironmentUrl: ${{ github.event.client_payload.targetenvironmenturl }}
 
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
     - name: 'clone this repo'
-      uses: actions/checkout@v2-beta
+      uses: actions/checkout@v3.1.0
 
     - name: Download artifact
       uses: dawidd6/action-download-artifact@v2
@@ -33,7 +33,7 @@ jobs:
 
     - name: 'Import the managed solution to the Prod (target) Environment'
       id: import-prod
-      uses: microsoft/powerplatform-actions/import-solution@v0
+      uses: microsoft/powerplatform-actions/import-solution@latest
       with:
         environment-url: ${{ env.targetEnvironmentUrl }}
         user-name: ${{ env.targetEnvironmentUserId }}
@@ -69,8 +69,8 @@ jobs:
           'workflow' = "$workflow";
           'branch' = "";
           'run' = $run;
-          'requestid' = $requestId;
-          'projectid' = "$projectid"
+           $requestId = echo "${{env.requestId}}"
+        $projectid = echo "${{env.projectId}}"
           'errors' = "$errorStr"
         }
         $jsonString = ConvertTo-Json -InputObject $status
@@ -78,7 +78,7 @@ jobs:
 
     - name: Upload job status file as artifact
       if: always()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: job_status
         path: status.json
