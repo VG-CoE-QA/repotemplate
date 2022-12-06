@@ -67,7 +67,6 @@ jobs:
               $errors["import-prod"] = "error occured in import-prod github action"
             }
           }
-
         $jobStatus = echo ${{ job.status }}
         $workflow = echo ${{ github.workflow }}
         $run = echo ${{ github.run_id }}
@@ -85,7 +84,6 @@ jobs:
         }
         $jsonString = ConvertTo-Json -InputObject $status
         $jsonString > status.json
-
     - name: Upload job status file as artifact
       if: always()
       uses: actions/upload-artifact@v3
