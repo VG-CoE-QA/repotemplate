@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: 'Export the solution from source environment'
       id: export-from-source
-      uses: microsoft/powerplatform-actions/export-solution@v0
+      uses: microsoft/powerplatform-actions/export-solution@latest
       with:
         user-name: ${{ env.sourceusername }}
         password-secret: ${{ secrets[env.sourcepasswordsecretname] }}
@@ -40,7 +40,7 @@ jobs:
 
     - name: 'Import the solution to Target Environment'
       id: import-to-target
-      uses: microsoft/powerplatform-actions/import-solution@v0
+      uses: microsoft/powerplatform-actions/import-solution@latest
       with:
         environment-url: ${{ env.targetenvironmenturl }}
         user-name: ${{ env.targetusername }}
@@ -109,7 +109,7 @@ jobs:
     steps:
 
     - name: Download artifact job_status
-      uses: actions/download-artifact@v2.0.1
+      uses: actions/download-artifact@v1
       with:
         name: job_status
       continue-on-error: true
